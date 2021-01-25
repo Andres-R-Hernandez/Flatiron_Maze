@@ -1,0 +1,2 @@
+class PlayerSpritesController < ApplicationController
+end

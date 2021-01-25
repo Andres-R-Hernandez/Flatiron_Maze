@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  timescore: 2021-01-25 14:29:55
+  player: one
+  maze: one
+  leaderboard: one
+
+two:
+  timescore: 2021-01-25 14:29:55
+  player: two
+  maze: two
+  leaderboard: two
