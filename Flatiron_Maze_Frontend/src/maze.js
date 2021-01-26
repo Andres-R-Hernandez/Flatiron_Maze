@@ -1,71 +1,33 @@
-let array = [
-    [0,0,1,1,1,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,1,1],
-    [0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0],
-    [1,0,1,0,1,1,0,1,0,1,1,0,1,1,1,0,1,0,0,0,0,0,0,0,0],
-    [1,0,1,0,1,1,0,1,0,0,1,0,1,0,0,0,1,0,0,1,0,1,0,0,0],
-    [1,0,1,0,0,0,0,1,0,0,1,0,1,0,1,0,1,0,0,0,0,0,0,0,0],
-    [1,0,1,1,1,1,1,1,1,1,1,0,1,0,0,1,1,0,1,1,1,1,1,0,0],
-    [0,0,1,1,0,0,0,0,0,0,0,0,1,0,1,0,1,0,1,0,0,0,1,0,0],
-    [0,1,1,0,0,1,1,1,1,1,1,1,1,0,0,0,1,0,1,1,1,1,1,0,0],
-    [0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-    [1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
-    [1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-    [0,1,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
-    [0,0,1,1,0,1,0,0,1,0,0,1,0,1,0,0,0,1,0,1,1,1,1,1,0],
-    [0,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0],
-    [1,1,0,1,0,1,1,0,0,0,1,0,0,0,1,0,0,1,1,1,1,1,0,1,0],
-    [0,0,0,1,0,1,1,1,0,0,1,1,1,1,1,0,0,1,0,0,0,0,0,1,0],
-    [0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,1,0],
-    [0,0,1,1,0,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,0,1,0],
-    [0,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0],
-    [1,0,0,0,1,1,0,0,1,1,1,1,1,1,1,1,0,1,0,0,1,1,0,1,0],
-    [1,1,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0],
-    [1,0,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0],
-]
+function fetchMazes(difficulty) {
+    let mazes = []
+    fetch(`http://localhost:3000/mazes/${difficulty}`)
+    .then(resp => resp.json())
+    .then(data => data.forEach(element => mazes.push(element)))
+    return mazes
+}
 
-// let array = [
-//     [0, 1, 1, 1, 1, 1, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 1, 0, 1, 0, 0],
-//     [0, 0, 0, 1, 0, 1, 0, 0, 0, 0],
-//     [0, 1, 0, 1, 0, 1, 0, 1, 1, 0],
-//     [0, 1, 0, 1, 0, 1, 0, 1, 0, 0],
-//     [0, 1, 1, 1, 0, 1, 0, 1, 0, 1],
-//     [0, 1, 0, 0, 0, 1, 0, 1, 0, 1],
-//     [0, 1, 0, 1, 1, 1, 0, 1, 0, 1],
-//     [1, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-//     [0, 0, 0, 0, 1, 1, 1, 1, 0, 0]
-// ]
+function arrayParse(arrayString, size) {
+    let array = []
+}
 
-// let array = [
-//     [0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
-//     [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-//     [0, 0, 0, 1, 0, 0, 0, 1, 0, 1],
-//     [1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-//     [0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-//     [0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
-//     [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-//     [0, 1, 0, 1, 0, 0, 0, 1, 0, 1],
-//     [0, 0, 0, 1, 1, 1, 1, 1, 0, 0]
-// ]
+function playMaze(array) {
+    const numRows = array.length
+    const cellSize = 500/numRows
 
-// let array = [
-//     [0, 1, 0, 0, 0],
-//     [0, 1, 0, 1, 0],
-//     [0, 0, 0, 1, 0],
-//     [1, 1, 1, 1, 0],
-//     [0, 0, 1, 0, 0],
-// ]
+    let playerPosition = {
+        x: cellSize/2,
+        y: cellSize/2
+    }
 
-const numRows = array.length
-const cellSize = 500/numRows
+    renderMaze(array)
 
-let playerPosition = {
-    x: cellSize/2,
-    y: cellSize/2
+    let ctx = canvas.getContext("2d");
+    ctx.beginPath();
+    ctx.arc(playerPosition.x, playerPosition.y, 5, 0, 2 * Math.PI);
+    ctx.stroke();
+    
+    document.onkeydown = checkKey;
+
 }
 
 function renderMaze(array) {
@@ -96,10 +58,7 @@ function renderMaze(array) {
         number++
         yPos += cellSize
     }
-    return cells
 }
-
-renderMaze(array)
 
 function wallCheck(array, playerPosition, direction) {
     const numRows = array.length
@@ -144,20 +103,13 @@ function wallCheck(array, playerPosition, direction) {
     }
 }
 
-let ctx = canvas.getContext("2d");
-ctx.beginPath();
-ctx.arc(playerPosition.x, playerPosition.y, 5, 0, 2 * Math.PI);
-ctx.stroke();    
-
-function movePlayer() {
+function movePlayer(playerPosition) {
     ctx.beginPath();
     ctx.arc(playerPosition.x, playerPosition.y, 5, 0, 2 * Math.PI);
-    ctx.stroke();    
+    ctx.stroke(); 
 }
 
-
-document.onkeydown = checkKey;
-function checkKey(e) {
+function checkKey(e, playerPosition) {
 
     e = e || window.event;
     const numRows = array.length
@@ -171,7 +123,7 @@ function checkKey(e) {
         //here is where we remove existing circles
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         renderMaze(array)
-        movePlayer()
+        movePlayer(playerPosition)
     }
     else if (e.keyCode == '40') {
         // down arrow
@@ -180,7 +132,7 @@ function checkKey(e) {
         wallCheck(array, playerPosition, direction)
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         renderMaze(array)
-        movePlayer()
+        movePlayer(playerPosition)
     }
     else if (e.keyCode == '37') {
        // left arrow
@@ -189,7 +141,7 @@ function checkKey(e) {
        wallCheck(array, playerPosition, direction)
        ctx.clearRect(0, 0, canvas.width, canvas.height);
        renderMaze(array)
-       movePlayer()
+       movePlayer(playerPosition)
     }
     else if (e.keyCode == '39') {
        // right arrow
@@ -198,6 +150,6 @@ function checkKey(e) {
        wallCheck(array, playerPosition, direction)
        ctx.clearRect(0, 0, canvas.width, canvas.height);
        renderMaze(array)
-       movePlayer()
+       movePlayer(playerPosition)
     }
 }

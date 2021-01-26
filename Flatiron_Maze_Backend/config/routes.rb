@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   resources :timescores
   resources :comments
-  resources :mazes
+  get "/mazes", to: "mazes#index"
+  get "/mazes/:difficulty", to: "mazes#maze_difficulty"
   resources :player_sprites
   resources :sprites
   resources :players
