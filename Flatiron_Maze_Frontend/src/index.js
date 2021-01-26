@@ -1,3 +1,9 @@
+let currentUser = null
+
+
+
+
+
 // mazeWidth = 10;
 // mazeHeight = 10;
 // function createBlankMaze() {
