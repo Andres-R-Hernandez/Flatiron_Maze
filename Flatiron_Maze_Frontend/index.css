@@ -7,3 +7,15 @@
     display: inline;
  }
  
+ h1 {
+    font: bold;
+    color: #06afe3;
+ }
+
+ p {
+    color: #06afe3;
+ }
+
+ body {
+    background-color: white;
+ }
