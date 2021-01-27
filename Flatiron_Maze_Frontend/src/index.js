@@ -1,3 +1,5 @@
+//hi
+
 //ANOTHER ONE
 //Global varaible for current logged in user
 let currentUser = {}
