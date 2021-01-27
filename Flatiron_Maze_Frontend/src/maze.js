@@ -5,7 +5,7 @@ async function fetchMazes(difficulty) {
     // .then(data => data.forEach(element => mazes.push(element)))
     // return mazes
 
-    //asynchronous code (not used)
+    // asynchronous code used to avoid confclicts in playMaze
     let mazes = []
     let response = await fetch(`http://localhost:3000/mazes/${difficulty}`)
     let data = await response.json()

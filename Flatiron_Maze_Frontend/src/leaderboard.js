@@ -1,21 +1,21 @@
 function renderLeaderboard(mazeID) {
     //grab timescores for an individual maze
-    //renderleaderboard
     fetch(`http://localhost:3000/timescores/${mazeID}`)
     .then(resp => resp.json())
     .then(data => showLeaderboard(data))
 }
 
 function showLeaderboard(data) {
-    let leaderboard = document.querySelector("#leaderboard-container")
-    leaderboard.style.display = "block"
+    let leaderboardContainer = document.querySelector("#leaderboard-container")
+    leaderboardContainer.style.display = "block"
     let title = document.createElement("h2")
     title.innerText = "Leaderboard"
-    leaderboard.append(title)
+    leaderboardContainer.append(title)
+
     let scoreTable = document.createElement("table")
     let tableHeadRow = document.createElement("tr")
     let nameColumn = document.createElement("th")
-    nameColumn.innerText = "Name"
+    nameColumn.innerText = "Player Name"
     let mazeColumn = document.createElement("th")
     mazeColumn.innerText = "Maze"
     let scoreColumn = document.createElement("th")
@@ -39,5 +39,5 @@ function showLeaderboard(data) {
         scoreTable.append(tableRow)
     })
 
-    leaderboard.append(scoreTable)
+    leaderboardContainer.append(scoreTable)
 }

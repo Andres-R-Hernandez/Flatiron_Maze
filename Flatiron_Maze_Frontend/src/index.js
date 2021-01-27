@@ -20,25 +20,25 @@ function buttonEvents() {
   //grab button from document
   //add event listener
   //within eventlistener, add callback function to ex: playGame()
-  let playgame = document.querySelector("#imgBtn1")
-  playgame.addEventListener('click', () => {
+  let playgameBtn = document.querySelector("#imgBtn1")
+  playgameBtn.addEventListener('click', () => {
     clearScreen()
     playGame()
   });
-  let leaderboard = document.querySelector("#imgBtn2")
-  leaderboard.addEventListener('click', () => {
+  let leaderboardBtn = document.querySelector("#imgBtn2")
+  leaderboardBtn.addEventListener('click', () => {
     clearScreen()
-    Leaderboard()
+    leaderboard()
   });
-  let comments = document.querySelector("#imgBtn3")
-  comments.addEventListener('click', () => {
+  let commentsBtn = document.querySelector("#imgBtn3")
+  commentsBtn.addEventListener('click', () => {
     clearScreen()
-    Comments()
+    comments()
   });
-  let logout = document.querySelector("#imgBtn4")
-  logout.addEventListener('click', () => {
+  let logoutBtn = document.querySelector("#imgBtn4")
+  logoutBtn.addEventListener('click', () => {
     clearScreen()
-    Logout()
+    logout()
   });
 }
 
@@ -77,7 +77,7 @@ async function playGame() {
   //form to add comment shown below maze and counter (automatically linked to maze)
 }
 
-function Leaderboard() {
+function leaderboard() {
   //show a list of all mazes
   //user can select from that list a maze
   //render leaderboard for chosen maze
@@ -85,18 +85,25 @@ function Leaderboard() {
 
   //add option queue here (produce mazeID for render)
 
-  renderLeaderboard(4)
+  renderLeaderboard(1)
 }
 
-function Comments() {
+function comments() {
   //shows all comments
   //allows for the creation of a comment, comments will reference maze played (selection)
   //users can delete or edit their own comments
+
+  renderComments()
 }
 
-function Logout() {
+function logout() {
   //clear current user
   //rest page to login view
+
+  currentUser = {}
+  let navbar = document.querySelector("#loggedInOptions");
+  navbar.style.visibility = "hidden"
+  renderLogin()
 }
 
 function clearScreen() {
@@ -107,4 +114,6 @@ function clearScreen() {
   })
   //clear counter for unfinished games
   clearInterval(interval)
+
+  //need to add code for clearing the event listener from 'keydown' created in mazegame
 }
