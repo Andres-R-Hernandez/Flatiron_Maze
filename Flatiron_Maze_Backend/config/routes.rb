@@ -9,5 +9,6 @@ Rails.application.routes.draw do
   resources :sprites
   get "/players", to: "players#index"
   get "/players/:name", to: "players#player_verify"
+  post "/players/new", to: "players#create"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

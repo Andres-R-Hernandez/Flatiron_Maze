@@ -4,22 +4,15 @@ let currentUser = {}
 let interval
 
 document.addEventListener("DOMContentLoaded", () => {
+  buttonEvents()
   renderLogin()
 })
-
-function renderHomescreen(currentUser) {
-  clearScreen()
-
-  let navbar = document.querySelector("#loggedInOptions");
-  navbar.style.visibility = "visible"
-
-  buttonEvents()
-}
 
 function buttonEvents() {
   //grab button from document
   //add event listener
-  //within eventlistener, add callback function to ex: playGame()
+  //within eventlistener, add callback function to render new view ex: playGame()
+  //event listener also clears the screen prior to rendering new view
   let playgameBtn = document.querySelector("#imgBtn1")
   playgameBtn.addEventListener('click', () => {
     clearScreen()
@@ -42,6 +35,12 @@ function buttonEvents() {
   });
 }
 
+function renderHomescreen(currentUser) {
+  clearScreen()
+
+  let navbar = document.querySelector("#loggedInOptions");
+  navbar.style.visibility = "visible"
+}
 
 async function playGame() {
   //grab container
@@ -80,12 +79,12 @@ async function playGame() {
 function leaderboard() {
   //show a list of all mazes
   //user can select from that list a maze
-  //render leaderboard for chosen maze
-  //form to add comment shown below leaderboard (automatically linked to maze)
-
   //add option queue here (produce mazeID for render)
 
+  //render leaderboard for chosen maze
   renderLeaderboard(1)
+
+  //form to add comment shown below leaderboard (automatically linked to maze)
 }
 
 function comments() {
@@ -103,6 +102,7 @@ function logout() {
   currentUser = {}
   let navbar = document.querySelector("#loggedInOptions");
   navbar.style.visibility = "hidden"
+
   renderLogin()
 }
 

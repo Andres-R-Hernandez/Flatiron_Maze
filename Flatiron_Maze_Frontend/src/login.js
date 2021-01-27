@@ -25,8 +25,38 @@ function renderLogin() {
 }
 
 function login(userName) {
-    fetch(`http://localhost:3000/players/${userName}`)
-    .then(r => r.json())
+    if (!userName) {
+        alert("UH OH! Only those with a name can play.");
+    } else {
+        fetch(`http://localhost:3000/players/${userName}`)
+        .then(r => r.json())
+        .then(data => {
+            console.log(data)
+            if (!!data) {
+                currentUser = data
+                renderHomescreen(currentUser)
+            }
+        })
+        .catch(function(error) {
+            alert("UH OH! Looks like that Username does not exist. Please check you spelling, or choose \'Create A Player\'");
+            console.log(error.message);
+        });
+    }
+}
+
+function createNewPlayer(name) {
+    newPlayer = {
+        name: name,
+    }
+
+    reqPkg = {
+        method: "POST",
+        headers: {"Content-type": "application/json"},
+        body: JSON.stringify(newPlayer)
+    }
+
+    fetch("http://localhost:3000/players/new", reqPkg)
+    .then(resp => resp.json())
     .then(data => {
         console.log(data)
         if (!!data) {
@@ -35,7 +65,7 @@ function login(userName) {
         }
     })
     .catch(function(error) {
-        alert("Bad things! Ragnarők!");
+        alert("UH OH! Looks like that Username is already taken!! Choose another.");
         console.log(error.message);
       });
 }
