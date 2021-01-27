@@ -1,4 +1,5 @@
 //ANOTHER ONE
+//hello
 //Global varaible for current logged in user
 let currentUser = {}
 //Global variable for game counter. needs to be global for reset outside of playMaze function
