@@ -8,6 +8,7 @@ function renderLeaderboard(mazeID) {
 
 function showLeaderboard(data) {
     let leaderboard = document.querySelector("#leaderboard-container")
+    leaderboard.style.display = "block"
     let title = document.createElement("h2")
     title.innerText = "Leaderboard"
     leaderboard.append(title)

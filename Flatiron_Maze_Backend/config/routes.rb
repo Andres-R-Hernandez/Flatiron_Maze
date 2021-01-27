@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  # resources :timescores
   get "/timescores", to: "timescores#index"
   get "/timescores/:mazeID", to:"timescores#maze_ID"
   resources :comments

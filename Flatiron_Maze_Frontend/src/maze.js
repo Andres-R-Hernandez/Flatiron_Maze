@@ -1,8 +1,15 @@
-function fetchMazes(difficulty) {
+async function fetchMazes(difficulty) {
+    // let mazes = []
+    // fetch(`http://localhost:3000/mazes/${difficulty}`)
+    // .then(resp => resp.json())
+    // .then(data => data.forEach(element => mazes.push(element)))
+    // return mazes
+
+    //asynchronous code (not used)
     let mazes = []
-    fetch(`http://localhost:3000/mazes/${difficulty}`)
-    .then(resp => resp.json())
-    .then(data => data.forEach(element => mazes.push(element)))
+    let response = await fetch(`http://localhost:3000/mazes/${difficulty}`)
+    let data = await response.json()
+    data.forEach(element => mazes.push(element))
     return mazes
 }
 
@@ -36,6 +43,7 @@ function playMaze(array) {
     }
 
     let canvasContainer = document.querySelector("#canvas-container")
+    canvasContainer.style.display = "block"
     let canvas = document.createElement('canvas');
         canvas.id = "canvas"
         canvas.width = "500"
@@ -53,16 +61,14 @@ function playMaze(array) {
     ctx.arc(playerPosition.x, playerPosition.y, 5, 0, 2 * Math.PI);
     ctx.stroke();
 
-    let interval = setInterval(() => {
-        console.log("it works duh")
+    interval = setInterval(() => {
         document.querySelector('#counter').innerText++
     }, 1000);
 
 
 
     document.addEventListener('keydown', (e) => {
-        checkKey(e, playerPosition)
-        console.log('click')
+        checkKey(e, playerPosition, array)
         //checkVictory(playerPosition)
         //check if complete (true/false)
     })
@@ -111,7 +117,6 @@ function wallCheck(array, playerPosition, direction) {
     let y = (playerPosition.y-(cellSize/2))/cellSize
 
     if (x < 0 || y < 0) {
-        console.log("BANNED")
         if (direction == "up") {
             playerPosition.y += cellSize
         } else if (direction == "down") {
@@ -122,7 +127,6 @@ function wallCheck(array, playerPosition, direction) {
             playerPosition.x -= cellSize
         }
     } else if (x > numRows-1 || y > numRows-1) {
-        console.log("BANNED")
         if (direction == "up") {
             playerPosition.y += cellSize
         } else if (direction == "down") {
@@ -133,7 +137,6 @@ function wallCheck(array, playerPosition, direction) {
             playerPosition.x -= cellSize
         }
     } else if (array[y][x] == 1){
-        console.log("BANNED")
         if (direction == "up") {
             playerPosition.y += cellSize
         } else if (direction == "down") {
@@ -153,7 +156,7 @@ function movePlayer(playerPosition) {
     ctx.stroke(); 
 }
 
-function checkKey(e, playerPosition) {
+function checkKey(e, playerPosition, array) {
     e = e || window.event;
     const numRows = array.length
     const cellSize = 500/numRows

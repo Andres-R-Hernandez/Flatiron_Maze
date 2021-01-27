@@ -1,12 +1,14 @@
+//Global varaible for current logged in user
 let currentUser = {}
+//Global variable for game counter. needs to be global for reset outside of playMaze function
+let interval
 
 document.addEventListener("DOMContentLoaded", () => {
   renderLogin()
 })
 
 function renderHomescreen(currentUser) {
-  let loginContainer = document.querySelector("#form-container");
-  loginContainer.innerHTML = ""
+  clearScreen()
 
   let navbar = document.querySelector("#loggedInOptions");
   navbar.style.visibility = "visible"
@@ -41,19 +43,17 @@ function buttonEvents() {
 }
 
 
-function playGame() {
+async function playGame() {
   //grab container
   //render difficulty options
   //fetch mazes from DB
   //display options in a dropdown (or render mini mazes????)
   //initiate game with options
 
-  let arrayString = fetchMazes("hard")
-  debugger
+  let arrayString = await fetchMazes("hard")
   let x = arrayString[0].layout
   let array = arrayParse(x)
   playMaze(array)
-  // debugger
 
   // let gameContainer = document.querySelector("#form-container")
   // let gameOptionsForm = document.createElement('form')
@@ -85,7 +85,7 @@ function Leaderboard() {
 
   //add option queue here (produce mazeID for render)
 
-  renderLeaderboard(1)
+  renderLeaderboard(4)
 }
 
 function Comments() {
@@ -103,5 +103,8 @@ function clearScreen() {
   let containers = document.querySelectorAll(".container")
   containers.forEach((container)=>{
     container.innerHTML = ""
+    container.style.display = "none"
   })
+  //clear counter for unfinished games
+  clearInterval(interval)
 }
