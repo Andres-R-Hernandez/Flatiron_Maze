@@ -48,6 +48,7 @@ function playMaze(array) {
         canvas.id = "canvas"
         canvas.width = "500"
         canvas.height = "500"
+        canvas.style.display = "table"
     let timer = document.createElement('h3');
         timer.id = "counter"
         timer.innerText = 0

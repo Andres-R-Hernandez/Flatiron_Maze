@@ -32,7 +32,7 @@ function showComments(data) {
         let maze = document.createElement("th")
         maze.innerText = comment.maze_id
         let description = document.createElement("th")
-        description.innerText = comment.timescore
+        description.innerText = comment.description
         let date = document.createElement("th")
         date.innerText = comment.created_at
         tableRow.append(name, maze, description, date)
