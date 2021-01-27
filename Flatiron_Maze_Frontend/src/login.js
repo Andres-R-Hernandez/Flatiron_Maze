@@ -22,6 +22,18 @@ function renderLogin() {
         event.preventDefault()
         login(event.target.userName.value)
     })
+    
+    //add create a player button
+    let newPlayerBtn = document.createElement('button')
+    newPlayerBtn.innerText = "Create A PLayer"
+    newPlayerBtn.classList.add("btn")
+    newPlayerBtn.classList.add("btn-primary")
+    newPlayerBtn.classList.add("mt-2")
+    newPlayerBtn.addEventListener('click', () => {
+        console.log("clicked")
+        renderCreatePlayerForm()
+    })
+    loginContainer.append(newPlayerBtn)
 }
 
 function login(userName) {
@@ -42,6 +54,26 @@ function login(userName) {
             console.log(error.message);
         });
     }
+}
+
+function renderCreatePlayerForm() {
+    let loginContainer = document.querySelector("#login-form-container");
+    loginContainer.innerHTML = ""
+    loginContainer.innerHTML = 
+    `<form id="login-form" class="m-3">
+        <p class="text-light">Create Your Player!</p>
+        <div class="row">
+            <div class="col-sm">
+                <input id="namevalue" name="userName" type="text" class="form-control" placeholder="Enter a Name">
+            </div>
+        </div>
+        <input class="btn btn-primary mt-2" id="submit" type="submit">
+    </form>`;
+    let loginForm = document.querySelector("#login-form");
+    loginForm.addEventListener('submit', (event) => {
+        event.preventDefault()
+        createNewPlayer(event.target.userName.value)
+    })
 }
 
 function createNewPlayer(name) {
