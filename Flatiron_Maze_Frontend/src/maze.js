@@ -58,17 +58,8 @@ function playMaze(array) {
         document.querySelector('#counter').innerText++
     }, 1000);
 
-    // document.addEventListener('onkeydown', (e) => {
-    //     checkKey(e, playerPosition)
-    //     console.log('click')
-    //     //checkVictory(playerPosition)
-    //     //check if complete (true/false)
-    // })
 
-    // clearInterval(interval) // stops timer
-    //return score?
 
-    // document.onkeydown = checkKey
     document.addEventListener('keydown', (e) => {
         checkKey(e, playerPosition)
         console.log('click')
