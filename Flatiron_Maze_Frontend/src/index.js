@@ -1,52 +1,62 @@
 let currentUser = {}
 
-// fetch(URL/${id})
-// 	.then(resp => resp.json())
-// 	.then(data => (data) => {
-// 		currentUser = data
-// 	})
-// 	.catch()
+document.addEventListener("DOMContentLoaded", () => {
+  renderLogin()
+})
 
-currentUser = {
-	id: 1,
-	name: "Player1"
+function renderHomescreen(currentUser) {
+  let loginContainer = document.querySelector("#form-container");
+  loginContainer.innerHTML = ""
+
+  let navbar = document.querySelector("#loggedInOptions");
+  navbar.style.visibility = "visible"
+
+  buttonEvents()
 }
 
-function login() {
-	// Is currentuser blank? If so, login screen. Render home page after
+function buttonEvents() {
+  //grab button from document
+  //add event listener
+  //within eventlistener, add callback function to ex: playGame()
+  let playgame = document.querySelector("#imgBtn")
+  playgame.addEventListener('click', () => {
+    playGame()
+  });
+  let leaderboard = document.querySelector("#imgBtn1")
+  playgame.addEventListener('click', () => {
+    Leaderboard()
+  });
+  let comments = document.querySelector("#imgBtn2")
+  playgame.addEventListener('click', () => {
+    Comments()
+  });
+  let logout = document.querySelector("#imgBtn3")
+  playgame.addEventListener('click', () => {
+    Logout()
+  });
 }
 
-// Grab the Flatabeer submit comment (persistence) 
-// Submit comments (Doesn't persist)
-// .js 
-// document.getElementById("submit").addEventListener("click", function(event) {
-// 	event.preventDefault();
-// 	let comment = document.querySelector('input#comment-input').value
-// 	let commentsList = document.querySelector('.comments')
-// 	let p = document.createElement("p");
-// 	let node = document.createTextNode(comment)
-// 	p.appendChild(node);
-// 	commentsList.appendChild(p);
-// 	document.querySelector('input#comment-input').value = ''
-//   });
 
-//.HTML
-{/* <div>
-    <h3>Comments</h3>
-    <div id='list' class='comments'></div>
+function playGame() {
+  //grab container
+  //render difficulty options
+  //fetch mazes from DB
+  //display options in a dropdown (or render mini mazes????)
+  //initiate game with options
 
-    <h3>Leave a comment</h3>
+  let gameContainer = querySelector("#form-container")
+  let gameOptionsForm = document.createElement('form')
 
-    <form id="comment-form" action="">
-      <input type='text' name="comment" id="comment-input" cols="30" rows="10">
-      </br>
-      <button id='submit'>submit</button>
-    </form>
+}
 
-  </div>
+function Leaderboard() {
+  
+}
 
-  <!-- <script src="js/index.min.js"></script> -->
-  <script src="scr/timer.js"></script>
-</body>
-</html> */}
+function Comments() {
+  
+}
 
+function Logout() {
+  
+}

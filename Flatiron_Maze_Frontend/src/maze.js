@@ -6,8 +6,24 @@ function fetchMazes(difficulty) {
     return mazes
 }
 
-function arrayParse(arrayString, size) {
+function arrayParse(arrayString) {
     let array = []
+    let row = []
+
+    for (i=0;i<arrayString.length;i++) {
+        if (arrayString.charAt(i) == "]") {
+            if (row.length > 0) {
+                array.push(row)
+                row = []
+            }    
+        } else {
+            if (arrayString.charAt(i) == "0" || arrayString.charAt(i) == "1") {
+                let integer = parseInt(arrayString.charAt(i), 10)
+                row.push(integer)
+            }
+        }
+    }
+    return array
 }
 
 function playMaze(array) {
@@ -19,19 +35,55 @@ function playMaze(array) {
         y: cellSize/2
     }
 
+    let canvasContainer = document.querySelector("#canvas-container")
+    let canvas = document.createElement('canvas');
+        canvas.id = "canvas"
+        canvas.width = "500"
+        canvas.height = "500"
+    let timer = document.createElement('h3');
+        timer.id = "counter"
+        timer.innerText = 0
+    canvasContainer.append(canvas)
+    canvasContainer.append(timer)
+
     renderMaze(array)
 
     let ctx = canvas.getContext("2d");
     ctx.beginPath();
     ctx.arc(playerPosition.x, playerPosition.y, 5, 0, 2 * Math.PI);
     ctx.stroke();
-    
-    document.onkeydown = checkKey;
 
+    let interval = setInterval(() => {
+        console.log("it works duh")
+        document.querySelector('#counter').innerText++
+    }, 1000);
+
+    // document.addEventListener('onkeydown', (e) => {
+    //     checkKey(e, playerPosition)
+    //     console.log('click')
+    //     //checkVictory(playerPosition)
+    //     //check if complete (true/false)
+    // })
+
+    // clearInterval(interval) // stops timer
+    //return score?
+
+    // document.onkeydown = checkKey
+    document.addEventListener('keydown', (e) => {
+        checkKey(e, playerPosition)
+        console.log('click')
+        //checkVictory(playerPosition)
+        //check if complete (true/false)
+    })
+}
+
+function complete(playerPosition, array) {
+    const numRows = array.length
+    return (playerPosition.x != numRows && playerPosition.y != numRows)
+    // returns false when the player reaches the 'exit'
 }
 
 function renderMaze(array) {
-    const canvas = document.getElementById('canvas');
     let cells = []
     const numRows = array.length
     const cellSize = 500/numRows
@@ -104,21 +156,23 @@ function wallCheck(array, playerPosition, direction) {
 }
 
 function movePlayer(playerPosition) {
+    let ctx = canvas.getContext('2d');
     ctx.beginPath();
     ctx.arc(playerPosition.x, playerPosition.y, 5, 0, 2 * Math.PI);
     ctx.stroke(); 
 }
 
 function checkKey(e, playerPosition) {
-
     e = e || window.event;
     const numRows = array.length
     const cellSize = 500/numRows
+    let ctx = canvas.getContext('2d');
 
     if (e.keyCode == '38') {
         // up arrow
         playerPosition.y -= cellSize;
         let direction = "up"
+        //check for walls
         wallCheck(array, playerPosition, direction)
         //here is where we remove existing circles
         ctx.clearRect(0, 0, canvas.width, canvas.height);
