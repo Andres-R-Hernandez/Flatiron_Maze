@@ -27,13 +27,13 @@ function showComments(data) {
 
     data.forEach((comment) => {
         let tableRow = document.createElement("tr")
-        let name = document.createElement("th")
+        let name = document.createElement("td")
         name.innerText = comment.player.name
-        let maze = document.createElement("th")
+        let maze = document.createElement("td")
         maze.innerText = comment.maze_id
-        let description = document.createElement("th")
+        let description = document.createElement("td")
         description.innerText = comment.description
-        let date = document.createElement("th")
+        let date = document.createElement("td")
         date.innerText = comment.created_at
         tableRow.append(name, maze, description, date)
         commentTable.append(tableRow)
