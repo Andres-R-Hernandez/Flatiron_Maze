@@ -111,6 +111,9 @@ Comment.create(player: player3, maze: maze3, description: "Awesome, can't wait f
 sprite1 = Sprite.create(image_url: "https://e7.pngegg.com/pngimages/688/123/png-clipart-pokemon-red-and-blue-pokemon-firered-and-leafgreen-pokemon-heartgold-and-soulsilver-sprite-sprite-text-rectangle.png")
 sprite2 = Sprite.create(image_url: "https://www.codeandweb.com/img/texturepacker/twitter-photonstorm.png")
 sprite3 = Sprite.create(image_url: "https://pngimage.net/wp-content/uploads/2018/06/sonic-sprite-png-5.png")
+sprite4 = Sprite.create(image_url: "https://koenig-media.raywenderlich.com/uploads/2012/06/PixelArtTutorial.png")
+sprite5 = Sprite.create(image_url: "https://cpng.pikpng.com/pngl/s/342-3420930_lonk-pixel-characters-transparent-background-clipart.png")
+sprite6 = Sprite.create(image_url: "https://cdn.imgbin.com/7/21/7/imgbin-video-game-sprite-pixel-art-3d-isometric-74sfyHP6uxLgFXCYmaakYAwZW.jpg")
 
 PlayerSprite.create(player: player1, sprite: sprite1)
 PlayerSprite.create(player: player2, sprite: sprite2)

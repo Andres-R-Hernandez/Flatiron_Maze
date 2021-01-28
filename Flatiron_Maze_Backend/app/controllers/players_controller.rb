@@ -9,7 +9,7 @@ class PlayersController < ApplicationController
         player = Player.find_by(name: params[:name])
 
         if !!player
-            render json: player
+            render json: player, except: [:updated_at, :created_at], include: [:sprites => {:only => [:image_url]}]
         end
     end
 
