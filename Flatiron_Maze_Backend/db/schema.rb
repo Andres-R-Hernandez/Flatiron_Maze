@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2021_01_25_202955) do
   end
 
   create_table "timescores", force: :cascade do |t|
-    t.integer "timescore"
+    t.integer "score"
     t.integer "player_id", null: false
     t.integer "maze_id", null: false
     t.datetime "created_at", precision: 6, null: false
