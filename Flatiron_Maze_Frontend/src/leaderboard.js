@@ -25,19 +25,27 @@ function showLeaderboard(data) {
     tableHeadRow.append(nameColumn, mazeColumn, scoreColumn, dateColumn)
     scoreTable.append(tableHeadRow)
 
-    data.forEach((scoreData) => {
+    
+    // let sortedData = data.sort(()=>{
+        
+    // });
+
+    sortedData.forEach((scoreData) => {
         let tableRow = document.createElement("tr")
-        let name = document.createElement("th")
+        let name = document.createElement("td")
         name.innerText = scoreData.player.name
-        let maze = document.createElement("th")
+        let maze = document.createElement("td")
         maze.innerText = scoreData.maze_id
-        let score = document.createElement("th")
+        let score = document.createElement("td")
         score.innerText = scoreData.timescore
-        let date = document.createElement("th")
-        date.innerText = scoreData.created_at
+        let date = document.createElement("td")
+        date.innerText = scoreData.created_at // change time display
         tableRow.append(name, maze, score, date)
         scoreTable.append(tableRow)
     })
-
     leaderboardContainer.append(scoreTable)
 }
+
+// `${Name}`, `${Maze}` Score.sort() `${Date}`
+
+
