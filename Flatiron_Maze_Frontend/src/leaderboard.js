@@ -6,6 +6,7 @@ function renderLeaderboard(mazeID) {
 }
 
 function showLeaderboard(data) {
+    console.log(data)
     let leaderboardContainer = document.querySelector("#leaderboard-container")
     leaderboardContainer.style.display = "block"
     let title = document.createElement("h2")
@@ -30,7 +31,7 @@ function showLeaderboard(data) {
     //    data.reverse()
     // });
 
-    data.sort((scoreData) => {
+    data.forEach((scoreData) => {
         let tableRow = document.createElement("tr")
         let name = document.createElement("td")
         name.innerText = scoreData.player.name
