@@ -26,11 +26,11 @@ function showLeaderboard(data) {
     scoreTable.append(tableHeadRow)
 
     
-    // let sortedData = data.sort(()=>{
-        
+    // let sortedData = data.sort(() => {
+    //    data.reverse()
     // });
 
-    data.forEach((scoreData) => {
+    data.sort((scoreData) => {
         let tableRow = document.createElement("tr")
         let name = document.createElement("td")
         name.innerText = scoreData.player.name
