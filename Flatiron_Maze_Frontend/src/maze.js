@@ -70,15 +70,59 @@ function playMaze(array) {
 
     document.addEventListener('keydown', (e) => {
         checkKey(e, playerPosition, array)
-        //checkVictory(playerPosition)
-        //check if complete (true/false)
+        if (checkVictory(playerPosition, array)) {
+            console.log("VICTORY")
+            victory()
+        }
     })
 }
 
-function complete(playerPosition, array) {
+function checkVictory(playerPosition, array) {
     const numRows = array.length
-    return (playerPosition.x != numRows && playerPosition.y != numRows)
-    // returns false when the player reaches the 'exit'
+    const cellSize = 500/numRows
+    if (playerPosition.x == 500-cellSize/2 && playerPosition.y == 500-cellSize/2) {
+        return true
+    } else {
+        return false
+    }
+}
+
+function victory() {
+    //this is where we can do some firework animations for the win
+    //stop counter
+    //save timescore to the database
+    //send player to the leaderboard (for the maze they just completed)
+    //allow player to write a comment about the maze they just played (render a comment form)
+    clearInterval(interval)
+    saveScore()
+
+}
+
+function saveScore() {
+    let counter = parseInt(document.querySelector("#counter").innerText,10)
+
+    newScore = {
+        score: counter,
+        player_id: currentUser.id,
+        maze_id: currentMaze,    
+    }
+
+    reqPkg = {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(newScore)
+    }
+
+    fetch("http://localhost:3000/timescores/new", reqPkg)
+    .then(resp => resp.json())
+    .then(data => {
+        console.log(data)
+    })
+    .catch(function(error) {
+        alert("UH OH! Something bad happened. Your score was not saved");
+        console.log(error.message);
+      });
+
 }
 
 function renderMaze(array) {
@@ -108,6 +152,10 @@ function renderMaze(array) {
         number++
         yPos += cellSize
     }
+    //code below colors the endgame square blue
+    let endSquare = canvas.getContext('2d');
+    endSquare.fillStyle = 'blue';
+    endSquare.fillRect(500-cellSize, 500-cellSize, cellSize, cellSize); 
 }
 
 function wallCheck(array, playerPosition, direction) {

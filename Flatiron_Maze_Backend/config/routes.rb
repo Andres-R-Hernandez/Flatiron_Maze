@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get "/timescores", to: "timescores#index"
   get "/timescores/:mazeID", to:"timescores#maze_ID"
-  # resources :comments
+  post "/timescores/new", to:"timescores#create"
   get "/comments", to: "comments#index"
   get "/mazes", to: "mazes#index"
   get "/mazes/:difficulty", to: "mazes#maze_difficulty"

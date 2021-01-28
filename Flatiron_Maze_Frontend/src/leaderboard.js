@@ -32,7 +32,7 @@ function showLeaderboard(data) {
         let maze = document.createElement("th")
         maze.innerText = scoreData.maze_id
         let score = document.createElement("th")
-        score.innerText = scoreData.timescore
+        score.innerText = scoreData.score
         let date = document.createElement("th")
         date.innerText = scoreData.created_at
         tableRow.append(name, maze, score, date)

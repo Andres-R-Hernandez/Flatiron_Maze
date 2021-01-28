@@ -4,6 +4,8 @@
 let currentUser = {}
 //Global variable for game counter. needs to be global for reset outside of playMaze function
 let interval
+//Global variable for the current maze
+let currentMaze = 1
 
 document.addEventListener("DOMContentLoaded", () => {
   buttonEvents()
@@ -51,7 +53,7 @@ async function playGame() {
   //display options in a dropdown (or render mini mazes????)
   //initiate game with options
 
-  let arrayString = await fetchMazes("hard")
+  let arrayString = await fetchMazes("easy")
   let x = arrayString[0].layout
   let array = arrayParse(x)
   playMaze(array)
@@ -71,6 +73,8 @@ async function playGame() {
   //     event.preventDefault()
   //     console.log("now here!")
   //   })
+
+  //IMPORTANT, inside function to choose maze, add to current maze global variable
     
 
   // render mazes for difficulty, give user option of mazes available (for chosen difficulty)
