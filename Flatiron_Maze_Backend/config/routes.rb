@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get "/comments", to: "comments#index"
   post "/comments/new", to: "comments#create"
   get "/mazes", to: "mazes#index"
-  get "/mazes/:difficulty", to: "mazes#maze_difficulty"
+  get "/mazes/:id", to: "mazes#show"
   resources :player_sprites
   resources :sprites
   get "/players", to: "players#index"
