@@ -30,14 +30,14 @@ function showLeaderboard(data) {
         
     // });
 
-    sortedData.forEach((scoreData) => {
+    data.forEach((scoreData) => {
         let tableRow = document.createElement("tr")
         let name = document.createElement("td")
         name.innerText = scoreData.player.name
         let maze = document.createElement("td")
         maze.innerText = scoreData.maze_id
         let score = document.createElement("td")
-        score.innerText = scoreData.timescore
+        score.innerText = scoreData.score
         let date = document.createElement("td")
         date.innerText = scoreData.created_at // change time display
         tableRow.append(name, maze, score, date)
