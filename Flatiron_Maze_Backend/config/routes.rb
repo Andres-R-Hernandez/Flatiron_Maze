@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get "/timescores/:mazeID", to:"timescores#maze_ID"
   post "/timescores/new", to:"timescores#create"
   get "/comments", to: "comments#index"
+  post "/comments/new", to: "comments#create"
   get "/mazes", to: "mazes#index"
   get "/mazes/:difficulty", to: "mazes#maze_difficulty"
   resources :player_sprites
