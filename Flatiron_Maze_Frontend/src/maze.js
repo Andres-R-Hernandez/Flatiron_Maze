@@ -1,3 +1,7 @@
+//global variable for number of rows in a game, becuse i cant remove the movement eventlistener otherwise.
+let numRows
+let array = []
+
 async function fetchMazes(difficulty) {
     // let mazes = []
     // fetch(`http://localhost:3000/mazes/${difficulty}`)
@@ -14,7 +18,7 @@ async function fetchMazes(difficulty) {
 }
 
 function arrayParse(arrayString) {
-    let array = []
+    array = []
     let row = []
 
     for (i=0;i<arrayString.length;i++) {
@@ -30,14 +34,14 @@ function arrayParse(arrayString) {
             }
         }
     }
+    numRows = array.length
     return array
 }
 
 function playMaze(array) {
-    const numRows = array.length
     const cellSize = 500/numRows
 
-    let playerPosition = {
+    playerPosition = {
         x: cellSize/2,
         y: cellSize/2
     }
@@ -66,63 +70,7 @@ function playMaze(array) {
         document.querySelector('#counter').innerText++
     }, 1000);
 
-
-
-    document.addEventListener('keydown', (e) => {
-        checkKey(e, playerPosition, array)
-        if (checkVictory(playerPosition, array)) {
-            console.log("VICTORY")
-            victory()
-        }
-    })
-}
-
-function checkVictory(playerPosition, array) {
-    const numRows = array.length
-    const cellSize = 500/numRows
-    if (playerPosition.x == 500-cellSize/2 && playerPosition.y == 500-cellSize/2) {
-        return true
-    } else {
-        return false
-    }
-}
-
-function victory() {
-    //this is where we can do some firework animations for the win
-    //stop counter
-    //save timescore to the database
-    //send player to the leaderboard (for the maze they just completed)
-    //allow player to write a comment about the maze they just played (render a comment form)
-    clearInterval(interval)
-    saveScore()
-
-}
-
-function saveScore() {
-    let counter = parseInt(document.querySelector("#counter").innerText,10)
-
-    newScore = {
-        score: counter,
-        player_id: currentUser.id,
-        maze_id: currentMaze,    
-    }
-
-    reqPkg = {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(newScore)
-    }
-
-    fetch("http://localhost:3000/timescores/new", reqPkg)
-    .then(resp => resp.json())
-    .then(data => {
-        console.log(data)
-    })
-    .catch(function(error) {
-        alert("UH OH! Something bad happened. Your score was not saved");
-        console.log(error.message);
-      });
-
+    document.addEventListener('keydown', checkKey)
 }
 
 function renderMaze(array) {
@@ -158,7 +106,7 @@ function renderMaze(array) {
     endSquare.fillRect(500-cellSize, 500-cellSize, cellSize, cellSize); 
 }
 
-function wallCheck(array, playerPosition, direction) {
+function wallCheck(array, direction) {
     const numRows = array.length
     const cellSize = 500/numRows
 
@@ -198,14 +146,14 @@ function wallCheck(array, playerPosition, direction) {
     }
 }
 
-function movePlayer(playerPosition) {
+function movePlayer() {
     let ctx = canvas.getContext('2d');
     ctx.beginPath();
     ctx.arc(playerPosition.x, playerPosition.y, 5, 0, 2 * Math.PI);
     ctx.stroke(); 
 }
 
-function checkKey(e, playerPosition, array) {
+function checkKey(e) {
     e = e || window.event;
     const numRows = array.length
     const cellSize = 500/numRows
@@ -216,37 +164,88 @@ function checkKey(e, playerPosition, array) {
         playerPosition.y -= cellSize;
         let direction = "up"
         //check for walls
-        wallCheck(array, playerPosition, direction)
+        wallCheck(array, direction)
         //here is where we remove existing circles
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         renderMaze(array)
-        movePlayer(playerPosition)
+        movePlayer()
+        checkVictory(array)
     }
     else if (e.keyCode == '40') {
         // down arrow
         playerPosition.y += cellSize;
         let direction = "down"
-        wallCheck(array, playerPosition, direction)
+        wallCheck(array, direction)
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         renderMaze(array)
-        movePlayer(playerPosition)
+        movePlayer()
+        checkVictory(array)
     }
     else if (e.keyCode == '37') {
        // left arrow
        playerPosition.x -= cellSize;
        let direction = "left"
-       wallCheck(array, playerPosition, direction)
+       wallCheck(array, direction)
        ctx.clearRect(0, 0, canvas.width, canvas.height);
        renderMaze(array)
-       movePlayer(playerPosition)
+       movePlayer()
+       checkVictory(array)
     }
     else if (e.keyCode == '39') {
        // right arrow
        playerPosition.x += cellSize;
        let direction = "right"
-       wallCheck(array, playerPosition, direction)
+       wallCheck(array, direction)
        ctx.clearRect(0, 0, canvas.width, canvas.height);
        renderMaze(array)
-       movePlayer(playerPosition)
+       movePlayer()
+       checkVictory(array)
     }
+}
+
+function checkVictory(array) {
+    const cellSize = 500/numRows
+    if (playerPosition.x == 500-cellSize/2 && playerPosition.y == 500-cellSize/2) {
+        console.log("VICTORY")
+        victory()
+    }
+}
+
+function victory() {
+    //this is where we can do some firework animations for the win
+    //stop counter
+    //save timescore to the database
+    //send player to the leaderboard (for the maze they just completed)
+    //allow player to write a comment about the maze they just played (render a comment form)
+    clearInterval(interval)
+    saveScore()
+    document.removeEventListener('keydown', checkKey)
+    window.setTimeout( () => {
+        clearScreen()
+        renderLeaderboard(currentMaze)
+        addCommentAfterWin()
+    }, 4000)
+}
+
+function saveScore() {
+    let counter = parseInt(document.querySelector("#counter").innerText,10)
+    newScore = {
+        score: counter,
+        player_id: currentUser.id,
+        maze_id: currentMaze,    
+    }
+    reqPkg = {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(newScore)
+    }
+    fetch("http://localhost:3000/timescores/new", reqPkg)
+    .then(resp => resp.json())
+    .then(data => {
+        console.log(data)
+    })
+    .catch(function(error) {
+        alert("UH OH! Something bad happened. Your score was not saved");
+        console.log(error.message);
+      });
 }

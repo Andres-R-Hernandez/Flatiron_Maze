@@ -50,7 +50,7 @@ function login(userName) {
             }
         })
         .catch(function(error) {
-            alert("UH OH! Looks like that Username does not exist. Please check you spelling, or choose \'Create A Player\'");
+            alert("UH OH! Looks like that Username does not exist. Please check you spelling, or choose 'Create A Player'");
             console.log(error.message);
         });
     }

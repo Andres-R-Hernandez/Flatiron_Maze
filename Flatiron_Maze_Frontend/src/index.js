@@ -5,7 +5,9 @@ let currentUser = {}
 //Global variable for game counter. needs to be global for reset outside of playMaze function
 let interval
 //Global variable for the current maze
-let currentMaze = 1
+let currentMaze = 4
+//Global variable for player position during game
+let playerPosition
 
 document.addEventListener("DOMContentLoaded", () => {
   buttonEvents()
@@ -53,9 +55,9 @@ async function playGame() {
   //display options in a dropdown (or render mini mazes????)
   //initiate game with options
 
-  let arrayString = await fetchMazes("easy")
+  let arrayString = await fetchMazes("hard")
   let x = arrayString[0].layout
-  let array = arrayParse(x)
+  arrayParse(x)
   playMaze(array)
 
   // let gameContainer = document.querySelector("#form-container")
@@ -77,7 +79,7 @@ async function playGame() {
   //IMPORTANT, inside function to choose maze, add to current maze global variable
     
 
-  // render mazes for difficulty, give user option of mazes available (for chosen difficulty)
+  //render mazes for difficulty, give user option of mazes available (for chosen difficulty)
   //once maze is shown, render maze and begin play
   //form to add comment shown below maze and counter (automatically linked to maze)
 }
@@ -88,7 +90,7 @@ function leaderboard() {
   //add option queue here (produce mazeID for render)
 
   //render leaderboard for chosen maze
-  renderLeaderboard(1)
+  renderLeaderboard(4)
 
   //form to add comment shown below leaderboard (automatically linked to maze)
 }
@@ -118,8 +120,8 @@ function clearScreen() {
     container.innerHTML = ""
     container.style.display = "none"
   })
-  //clear counter for unfinished games
+  //clear events from unfinished games
   clearInterval(interval)
-
+  document.removeEventListener('keydown', checkKey)
   //need to add code for clearing the event listener from 'keydown' created in mazegame
 }
