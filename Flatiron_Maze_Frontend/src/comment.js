@@ -78,8 +78,6 @@ function submitComment(submittedComment) {
         description: submittedComment.textArea.value
     }
 
-    debugger
-
     resPkg = {
         method: "POST",
         headers: {"Content-type": "application/json"},

@@ -1,28 +1,25 @@
-//ANOTHER ONE
-//hello
 //Global varaible for current logged in user
 let currentUser = {}
 //Global variable for game counter. needs to be global for reset outside of playMaze function
 let interval
 //Global variable for the current maze
-let currentMaze = 4
+let currentMaze
 //Global variable for player position during game
 let playerPosition
+//Global variable for list of mazes, with difficulties, for options
+let listOmazes = []
 
 document.addEventListener("DOMContentLoaded", () => {
   buttonEvents()
   renderLogin()
+  fetchMazes()
 })
 
 function buttonEvents() {
-  //grab button from document
-  //add event listener
-  //within eventlistener, add callback function to render new view ex: playGame()
-  //event listener also clears the screen prior to rendering new view
   let playgameBtn = document.querySelector("#imgBtn1")
   playgameBtn.addEventListener('click', () => {
     clearScreen()
-    playGame()
+    selectDifficulty()
   });
   let leaderboardBtn = document.querySelector("#imgBtn2")
   leaderboardBtn.addEventListener('click', () => {
@@ -48,40 +45,70 @@ function renderHomescreen(currentUser) {
   navbar.style.visibility = "visible"
 }
 
-async function playGame() {
-  //grab container
-  //render difficulty options
-  //fetch mazes from DB
-  //display options in a dropdown (or render mini mazes????)
-  //initiate game with options
+function selectDifficulty() {
+  //render the form for selecting which maze difficulty to play
+  let gameOptionsContainer = document.querySelector("#options-form-container")
+  gameOptionsContainer.style.display = "block"
+  let gameOptionsForm = document.createElement('form')
+  gameOptionsForm.innerHTML = 
+    `<label for="difficulty">Choose a Difficulty:</label>
+    <select name="difficulty" id="difficulty">
+      <option value="easy">Easy</option>
+      <option value="medium">Medium</option>
+      <option value="hard">Hard</option>
+    </select>
+    <input type="submit" value="submit">`
+  gameOptionsContainer.append(gameOptionsForm)
+  gameOptionsForm.addEventListener('submit', (event) => {
+    event.preventDefault()
+    selectMazeGivenDifficulty(event.target.difficulty.value)
+  })
+}
 
-  let arrayString = await fetchMazes("hard")
-  let x = arrayString[0].layout
-  arrayParse(x)
-  playMaze(array)
+async function selectMazeGivenDifficulty(difficulty) {
+  clearScreen()
 
-  // let gameContainer = document.querySelector("#form-container")
-  // let gameOptionsForm = document.createElement('form')
-  // gameOptionsForm.innerHTML = 
-  //   `<label for="difficulty">Choose a Difficulty:</label>
-  //   <select id="difficulty">
-  //     <option value="easy">Easy</option>
-  //     <option value="medium">Medium</option>
-  //     <option value="hard">Hard</option>
-  //   </select>
-  //   <input type="submit" value="submit">`
-  //   gameContainer.append(gameOptionsForm)
-  //   gameOptionsForm.addEventListener('submit', (event) => {
-  //     event.preventDefault()
-  //     console.log("now here!")
-  //   })
+  let gameOptionsContainer = document.querySelector("#options-form-container")
+  gameOptionsContainer.style.display = "block"
 
-  //IMPORTANT, inside function to choose maze, add to current maze global variable
-    
+  let gameOptionsForm = document.createElement('form')
+  let label = document.createElement('label')
+  label.for = "mazeOptions"
+  label.innerText = "Choose a Maze:"
+  let selectMenu = document.createElement('select')
+  selectMenu.name = "mazeChoice"
+  selectMenu.id = "mazeOptions"
+  let button = document.createElement('input')
+  button.type = "submit"
+  button.value = "submit"
 
-  //render mazes for difficulty, give user option of mazes available (for chosen difficulty)
-  //once maze is shown, render maze and begin play
-  //form to add comment shown below maze and counter (automatically linked to maze)
+  let data = listOmazes.filter(maze => maze.difficulty === difficulty)
+
+  data.forEach((mazeOption) => {
+    let option = document.createElement('option')
+    option.value = mazeOption.id
+    option.innerText = `Maze #${mazeOption.id}, ${difficulty}`
+    selectMenu.append(option)
+  })
+
+  gameOptionsForm.addEventListener('submit', async (event) => {
+    event.preventDefault()
+    clearScreen()
+    currentMaze = await event.target.mazeChoice.value
+    let layout = await fetchMazeLayout(event.target.mazeChoice.value)
+    playMaze(layout)
+  })
+
+  let backButton = document.createElement('button')
+  backButton.innerText = "Back"
+  backButton.addEventListener('click', () => {
+    clearScreen()
+    selectDifficulty()
+  })
+
+  gameOptionsForm.append(label, selectMenu, button)
+  gameOptionsContainer.append(gameOptionsForm, backButton)
+  
 }
 
 function leaderboard() {

@@ -2,7 +2,7 @@
 let numRows
 let array = []
 
-async function fetchMazes(difficulty) {
+async function fetchMazes() {
     // let mazes = []
     // fetch(`http://localhost:3000/mazes/${difficulty}`)
     // .then(resp => resp.json())
@@ -11,10 +11,22 @@ async function fetchMazes(difficulty) {
 
     // asynchronous code used to avoid conflicts in playMaze
     let mazes = []
-    let response = await fetch(`http://localhost:3000/mazes/${difficulty}`)
+    let response = await fetch(`http://localhost:3000/mazes`)
     let data = await response.json()
-    data.forEach(element => mazes.push(element))
-    return mazes
+    listOmazes = data
+}
+
+async function fetchMazeLayout(mazeID) {
+    // let mazes = []
+    // fetch(`http://localhost:3000/mazes/${difficulty}`)
+    // .then(resp => resp.json())
+    // .then(data => data.forEach(element => mazes.push(element)))
+    // return mazes
+
+    // asynchronous code used to avoid conflicts in playMaze
+    let response = await fetch(`http://localhost:3000/mazes/${mazeID}`)
+    let data = await response.json()
+    return arrayParse(data.layout)
 }
 
 function arrayParse(arrayString) {
