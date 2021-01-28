@@ -30,7 +30,6 @@ function renderLogin() {
     newPlayerBtn.classList.add("btn-primary")
     newPlayerBtn.classList.add("mt-2")
     newPlayerBtn.addEventListener('click', () => {
-        console.log("clicked")
         renderCreatePlayerForm()
     })
     loginContainer.append(newPlayerBtn)
@@ -56,16 +55,24 @@ function login(userName) {
     }
 }
 
-function renderCreatePlayerForm() {
+async function renderCreatePlayerForm() {
     let loginContainer = document.querySelector("#login-form-container");
     loginContainer.innerHTML = ""
     loginContainer.innerHTML = 
     `<form id="login-form" class="m-3">
-        <p class="text-light">Create Your Player!</p>
+        <p class="text-light">Create Your Player Name And Choose A Sprite From The Selection Below!</p>
         <div class="row">
             <div class="col-sm">
                 <input id="namevalue" name="userName" type="text" class="form-control" placeholder="Enter a Name">
             </div>
+            <select>
+                <option>Player Sprite #1</option>
+                <option>Player Sprite #2</option>
+                <option>Player Sprite #3</option>
+                <option>Player Sprite #4</option>
+                <option>Player Sprite #5</option>
+                <option>Player Sprite #6</option>
+            </select> 
         </div>
         <input class="btn btn-primary mt-2" id="submit" type="submit">
     </form>`;
@@ -74,6 +81,23 @@ function renderCreatePlayerForm() {
         event.preventDefault()
         createNewPlayer(event.target.userName.value)
     })
+
+    let sprites = await fetchSprites()
+
+    sprites.forEach((sprite, index) => {
+        let img = document.createElement('img')
+        img.src = sprite.image_url
+        img.style.height = `50px`
+        img.style.width = `50px`
+        img.title = `Player Sprite #${index+1}`
+        loginContainer.append(img)
+    });
+
+}
+
+async function fetchSprites() {
+    return fetch("http://localhost:3000/sprites")
+    .then(resp => resp.json())
 }
 
 function createNewPlayer(name) {

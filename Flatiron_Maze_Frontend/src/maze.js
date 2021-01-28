@@ -73,10 +73,19 @@ function playMaze(array) {
 
     renderMaze(array)
 
-    let ctx = canvas.getContext("2d");
-    ctx.beginPath();
-    ctx.arc(playerPosition.x, playerPosition.y, 5, 0, 2 * Math.PI);
-    ctx.stroke();
+    //code below renders the player sprite at the start position
+    let x = document.querySelector("#canvas-container")
+    x.setAttribute("style", "position:relative")
+    let y = document.createElement("img")
+    y.id = "playerSprite"
+    y.src = `${currentUser.sprites[0]["image_url"]}`
+    y.style.height = `${cellSize/2}px`
+    y.style.width = `${cellSize/2}px`
+    y.style.top = `${cellSize/4+5}px`
+    y.style.left = `${cellSize/4+20}px`
+    y.style.position = "absolute"
+    x.append(y)
+
 
     interval = setInterval(() => {
         document.querySelector('#counter').innerText++
@@ -159,10 +168,12 @@ function wallCheck(array, direction) {
 }
 
 function movePlayer() {
-    let ctx = canvas.getContext('2d');
-    ctx.beginPath();
-    ctx.arc(playerPosition.x, playerPosition.y, 5, 0, 2 * Math.PI);
-    ctx.stroke(); 
+    //sprite movement
+    const cellSize = 500/numRows
+    let y = document.querySelector("#playerSprite")
+    y.style.top = `${playerPosition.y-cellSize/4+5}px`
+    y.style.left = `${playerPosition.x-cellSize/4+20}px`
+
 }
 
 function checkKey(e) {
@@ -177,9 +188,6 @@ function checkKey(e) {
         let direction = "up"
         //check for walls
         wallCheck(array, direction)
-        //here is where we remove existing circles
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        renderMaze(array)
         movePlayer()
         checkVictory(array)
     }
@@ -188,8 +196,6 @@ function checkKey(e) {
         playerPosition.y += cellSize;
         let direction = "down"
         wallCheck(array, direction)
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        renderMaze(array)
         movePlayer()
         checkVictory(array)
     }
@@ -198,8 +204,6 @@ function checkKey(e) {
        playerPosition.x -= cellSize;
        let direction = "left"
        wallCheck(array, direction)
-       ctx.clearRect(0, 0, canvas.width, canvas.height);
-       renderMaze(array)
        movePlayer()
        checkVictory(array)
     }
@@ -208,8 +212,6 @@ function checkKey(e) {
        playerPosition.x += cellSize;
        let direction = "right"
        wallCheck(array, direction)
-       ctx.clearRect(0, 0, canvas.width, canvas.height);
-       renderMaze(array)
        movePlayer()
        checkVictory(array)
     }
