@@ -24,4 +24,6 @@ class TimescoresController < ApplicationController
         params.require(:timescore).permit(:score, :player_id, :maze_id)
     end
 
+
 end
+

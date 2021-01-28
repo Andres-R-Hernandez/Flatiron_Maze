@@ -26,12 +26,12 @@ function showLeaderboard(data) {
     tableHeadRow.append(nameColumn, mazeColumn, scoreColumn, dateColumn)
     scoreTable.append(tableHeadRow)
 
-    
-    // let sortedData = data.sort(() => {
-    //    data.reverse()
-    // });
+    // debugger
+    let sortedData = data.sort((a, b) => {
+        return a.score - b.score
+    });
 
-    data.forEach((scoreData) => {
+    sortedData.forEach((scoreData) => {
         let tableRow = document.createElement("tr")
         let name = document.createElement("td")
         name.innerText = scoreData.player.name
@@ -40,13 +40,19 @@ function showLeaderboard(data) {
         let score = document.createElement("td")
         score.innerText = scoreData.score
         let date = document.createElement("td")
-        date.innerText = scoreData.created_at // change time display
+        date.innerText = scoreData.created_at
         tableRow.append(name, maze, score, date)
         scoreTable.append(tableRow)
     })
     leaderboardContainer.append(scoreTable)
 }
 
-// `${Name}`, `${Maze}` Score.sort() `${Date}`
+// function timeDate() {
+// // let tDate = "2021-01-28T15:38:47.552Z"
+// // tDate.parseInt
+// //let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+// let today  = new Date();
+// console.log(today.toLocaleDateString("en-US")); // 9/17/2016
+// }
 
 

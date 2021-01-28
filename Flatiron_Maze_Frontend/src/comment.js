@@ -71,6 +71,7 @@ function addCommentAfterWin() {
     commentContainer.append(commentForm)
 }
 
+
 function submitComment(submittedComment) {
     newComment = {
         player_id: parseInt(submittedComment.playerID.value,10),
@@ -95,3 +96,15 @@ function submitComment(submittedComment) {
         console.log(error.message);
       });
 }
+
+// function deleteBtn() {
+//     let description = document.createElement("td")
+//     description.innerText = comments.description
+//     const deleteButton = document.createElement("button");
+//     deleteButton.innerText = 'Remove';
+//     console.log(deleteButton);
+//     description.append(deleteButton);
+//     deleteButton.addEventListener("click", () => {
+//       description.remove();
+//    })
+// }
