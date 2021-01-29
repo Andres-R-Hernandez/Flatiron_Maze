@@ -46,12 +46,5 @@ function showLeaderboard(data) {
     leaderboardContainer.append(scoreTable)
 }
 
-// function timeDate() {
-// // let tDate = "2021-01-28T15:38:47.552Z"
-// // tDate.parseInt
-// //let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-// let today  = new Date();
-// console.log(today.toLocaleDateString("en-US")); // 9/17/2016
-// }
 
 
