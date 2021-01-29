@@ -133,6 +133,7 @@ function createNewPlayer(event) {
 }
 
 function welcome() {
+    clearScreen()
     const container = document.querySelector("#login-form-container")
     container.style.display = "block"
     let h3 = document.createElement("h3")
