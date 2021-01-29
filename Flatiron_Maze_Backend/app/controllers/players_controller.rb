@@ -17,10 +17,9 @@ class PlayersController < ApplicationController
         
         if Player.exists?(name: params[:name])
         else
-            sprite = Sprite.find_by(id: params[:spriteId])
             player = Player.new(name: params[:name])
-            PlayerSprite.create(player: player, sprite: sprite)
-            if player.save
+            playerSprite = PlayerSprite.new(player: player, sprite_id: params[:spriteId])
+            if player.save && playerSprite.save
                 render json: player, except: [:updated_at, :created_at], include: [:sprites => {:only => [:image_url]}]
             end
         end

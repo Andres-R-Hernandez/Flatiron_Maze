@@ -7,11 +7,11 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 PlayerSprite.destroy_all()
-Player.destroy_all()
-Maze.destroy_all()
-Timescore.destroy_all()
-Comment.destroy_all()
 Sprite.destroy_all()
+Comment.destroy_all()
+Timescore.destroy_all()
+Maze.destroy_all()
+Player.destroy_all()
 
 #destroy all functions are giving an error (after db:seed initial run): FOREIGN KEY constraint failed
 #figure out why, and fast!
@@ -143,10 +143,8 @@ sprite3 = Sprite.create(image_url: "https://pngimage.net/wp-content/uploads/2018
 sprite4 = Sprite.create(image_url: "https://koenig-media.raywenderlich.com/uploads/2012/06/PixelArtTutorial.png")
 sprite5 = Sprite.create(image_url: "https://cpng.pikpng.com/pngl/s/342-3420930_lonk-pixel-characters-transparent-background-clipart.png")
 sprite6 = Sprite.create(image_url: "https://cdn.imgbin.com/7/21/7/imgbin-video-game-sprite-pixel-art-3d-isometric-74sfyHP6uxLgFXCYmaakYAwZW.jpg")
+sprite7 = Sprite.create(image_url: "https://cdn.lowgif.com/full/6804b8940e8b8cff-.gif")
 
 PlayerSprite.create(player: player1, sprite: sprite1)
 PlayerSprite.create(player: player2, sprite: sprite2)
 PlayerSprite.create(player: player3, sprite: sprite3)
-
-
-#gif image_url: "https://cdn.lowgif.com/full/6804b8940e8b8cff-.gif"

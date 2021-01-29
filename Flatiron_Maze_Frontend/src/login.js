@@ -56,6 +56,8 @@ function login(userName) {
 }
 
 async function renderCreatePlayerForm() {
+    let sprites = await fetchSprites()
+
     let loginContainer = document.querySelector("#login-form-container");
     loginContainer.innerHTML = ""
     loginContainer.innerHTML = 
@@ -65,13 +67,7 @@ async function renderCreatePlayerForm() {
             <div class="col-sm">
                 <input id="namevalue" name="userName" type="text" class="form-control" placeholder="Enter a Name">
             </div>
-            <select id="sprite" name="sprite">
-                <option value="1">Player Sprite #1</option>
-                <option value="2">Player Sprite #2</option>
-                <option value="3">Player Sprite #3</option>
-                <option value="4">Player Sprite #4</option>
-                <option value="5">Player Sprite #5</option>
-                <option value="6">Player Sprite #6</option>
+            <select id="spriteOptions" name="sprite">
             </select> 
         </div>
         <input class="btn btn-primary mt-2" id="submit" type="submit">
@@ -87,9 +83,13 @@ async function renderCreatePlayerForm() {
         
     })
 
-    let sprites = await fetchSprites()
-
     sprites.forEach((sprite, index) => {
+        let spriteOptions = document.querySelector('#spriteOptions')
+        let spriteChoice = document.createElement('option')
+        spriteChoice.value = sprite.id
+        spriteChoice.innerText = `Player Sprite #${index+1}`
+        spriteOptions.append(spriteChoice)
+
         let img = document.createElement('img')
         img.src = sprite.image_url
         img.style.height = `50px`
@@ -121,7 +121,6 @@ function createNewPlayer(event) {
     .then(resp => resp.json())
     .then(data => {
         console.log(data)
-        console.log("why")
         if (!!data) {
             currentUser = data
             renderHomescreen(currentUser)
@@ -130,7 +129,6 @@ function createNewPlayer(event) {
     .catch(function(error) {
         alert("UH OH! Looks like that Username is already taken!! Choose another.");
         console.log(error.message);
-        console.log("lame")
       });
 }
 
