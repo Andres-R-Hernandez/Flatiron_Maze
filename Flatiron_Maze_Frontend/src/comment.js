@@ -52,11 +52,11 @@ function showComments(data) {
         let editBtn = document.createElement("button")
         editBtn.innerText = "edit"
         editBtn.addEventListener('click', function (){
-            deleteComment(comment.id) 
+            editCommentForm(comment.id, comment.description) 
         })
         editEE.append(editBtn)
 
-        tableRow.append(name, maze, description, date, deleteEE)
+        tableRow.append(name, maze, description, date, deleteEE, editEE)
         commentTable.append(tableRow)
     })
 
@@ -131,6 +131,29 @@ function deleteComment(commentId) {
         })
 }
 
+function editCommentForm(commentId, previousDecription) {
+    clearScreen()
+    let commentContainer = document.querySelector("#comments-container")
+    commentContainer.style.display = "block"
+    let title = document.createElement("h4")
+    title.innerText = "Edit Your Comment Below"
+    commentContainer.append(title)
+    let commentForm = document.createElement("form")
+    let textArea = document.createElement("textarea")
+    textArea.name = "textArea"
+    textArea.innerText = previousDecription
+    let submitBtn = document.createElement("input")
+    submitBtn.name = "submit"
+    submitBtn.type = "submit"
+    submitBtn.value = "submit"
+    commentForm.addEventListener('submit', (event) => {
+        event.preventDefault()
+        editComment(commentId, event.target.textArea.value)
+    })
+    commentForm.append(textArea, submitBtn)
+    commentContainer.append(commentForm)
+}
+
 function editComment(commentId, newDescription){
     let newComment = {
         id: commentId, 
@@ -138,7 +161,8 @@ function editComment(commentId, newDescription){
     }
     reqPack = {
         method: "PATCH",
-        headers: {"Content-Type": "application/json"}
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(newComment)
     }
     fetch(`http://localhost:3000/comments/${commentId}`, reqPack)
         .then(r=>r.json())

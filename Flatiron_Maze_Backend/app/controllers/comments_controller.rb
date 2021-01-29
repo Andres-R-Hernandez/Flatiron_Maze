@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
         render json: comments, except: [:player_id, :updated_at], include: [:player => {only: [:name]}]
     end
 
-    def updated
+    def update
         comment = Comment.find(params[:id])
         comment.update(comment_params)
         comments = Comment.all
