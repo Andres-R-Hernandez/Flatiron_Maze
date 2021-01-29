@@ -5,6 +5,39 @@ function renderLeaderboard(mazeID) {
     .then(data => showLeaderboard(data))
 }
 
+async function selectMazeForLeaderboard() {
+    let gameOptionsContainer = document.querySelector("#options-form-container")
+    gameOptionsContainer.style.display = "block"
+
+    let gameOptionsForm = document.createElement('form')
+    let label = document.createElement('label')
+    label.for = "mazeOptions"
+    label.innerText = "Choose a Maze:"
+    let selectMenu = document.createElement('select')
+    selectMenu.name = "mazeChoice"
+    selectMenu.id = "mazeOptions"
+    let button = document.createElement('input')
+    button.type = "submit"
+    button.value = "submit"
+
+    listOmazes.forEach((mazeOption) => {
+        let option = document.createElement('option')
+        option.value = mazeOption.id
+        option.innerText = `Maze #${mazeOption.id}, ${mazeOption.difficulty}`
+        selectMenu.append(option)
+    })
+
+    gameOptionsForm.addEventListener('submit', async (event) => {
+        event.preventDefault()
+        clearScreen()
+        mazeID = await event.target.mazeChoice.value
+        renderLeaderboard(mazeID)
+    })
+
+    gameOptionsForm.append(label, selectMenu, button)
+    gameOptionsContainer.append(gameOptionsForm)
+}  
+
 function showLeaderboard(data) {
     let leaderboardContainer = document.querySelector("#leaderboard-container")
     leaderboardContainer.style.display = "block"
