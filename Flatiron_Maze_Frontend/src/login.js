@@ -65,13 +65,13 @@ async function renderCreatePlayerForm() {
             <div class="col-sm">
                 <input id="namevalue" name="userName" type="text" class="form-control" placeholder="Enter a Name">
             </div>
-            <select>
-                <option>Player Sprite #1</option>
-                <option>Player Sprite #2</option>
-                <option>Player Sprite #3</option>
-                <option>Player Sprite #4</option>
-                <option>Player Sprite #5</option>
-                <option>Player Sprite #6</option>
+            <select id="sprite" name="sprite">
+                <option value="1">Player Sprite #1</option>
+                <option value="2">Player Sprite #2</option>
+                <option value="3">Player Sprite #3</option>
+                <option value="4">Player Sprite #4</option>
+                <option value="5">Player Sprite #5</option>
+                <option value="6">Player Sprite #6</option>
             </select> 
         </div>
         <input class="btn btn-primary mt-2" id="submit" type="submit">
@@ -79,7 +79,12 @@ async function renderCreatePlayerForm() {
     let loginForm = document.querySelector("#login-form");
     loginForm.addEventListener('submit', (event) => {
         event.preventDefault()
-        createNewPlayer(event.target.userName.value)
+        if (!event.target.userName.value) {
+            alert("UH OH! Only those with a name can play.");
+        } else {
+            createNewPlayer(event)
+        }
+        
     })
 
     let sprites = await fetchSprites()
@@ -100,9 +105,10 @@ async function fetchSprites() {
     .then(resp => resp.json())
 }
 
-function createNewPlayer(name) {
+function createNewPlayer(event) {
     newPlayer = {
-        name: name,
+        name: event.target.userName.value,
+        spriteId: parseInt(event.target.sprite.value,10)
     }
 
     reqPkg = {
@@ -115,6 +121,7 @@ function createNewPlayer(name) {
     .then(resp => resp.json())
     .then(data => {
         console.log(data)
+        console.log("why")
         if (!!data) {
             currentUser = data
             renderHomescreen(currentUser)
@@ -123,5 +130,6 @@ function createNewPlayer(name) {
     .catch(function(error) {
         alert("UH OH! Looks like that Username is already taken!! Choose another.");
         console.log(error.message);
+        console.log("lame")
       });
 }

@@ -14,17 +14,22 @@ class PlayersController < ApplicationController
     end
 
     def create
-        player = Player.new(player_params)
-
-        if player.save
-            render json: player
+        
+        if Player.exists?(name: params[:name])
+        else
+            sprite = Sprite.find_by(id: params[:spriteId])
+            player = Player.new(name: params[:name])
+            PlayerSprite.create(player: player, sprite: sprite)
+            if player.save
+                render json: player, except: [:updated_at, :created_at], include: [:sprites => {:only => [:image_url]}]
+            end
         end
     end
 
     private
 
     def player_params
-        params.require(:player).permit(:name)
+        params.require(:player).permit(:name, :spriteId)
     end
 
 end
