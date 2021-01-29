@@ -43,6 +43,7 @@ function renderHomescreen(currentUser) {
 
   let navbar = document.querySelector("#loggedInOptions");
   navbar.style.visibility = "visible"
+  welcome() 
 }
 
 async function selectDifficulty() {

@@ -238,7 +238,7 @@ function victory() {
         clearScreen()
         renderLeaderboard(currentMaze)
         addCommentAfterWin()
-    }, 4000)
+    }, 1000)
 }
 
 function saveScore() {

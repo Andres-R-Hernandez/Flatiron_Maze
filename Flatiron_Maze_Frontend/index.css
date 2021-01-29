@@ -107,6 +107,7 @@ margin-right: auto;
 
 #comments-container {
   background-color: white;
+  opacity: 0.9;
 }
 
 #difficulty {
@@ -121,5 +122,13 @@ margin-right: auto;
 }
 
 label {
+  color: white;
+}
+
+.container {
+  text-align: center;
+}
+
+p {
   color: white;
 }
