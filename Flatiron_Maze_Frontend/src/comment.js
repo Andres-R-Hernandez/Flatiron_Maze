@@ -22,7 +22,11 @@ function showComments(data) {
     descriptionColumn.innerText = "Description"
     let dateColumn = document.createElement("th")
     dateColumn.innerText = "Date Created"
-    tableHeadRow.append(nameColumn, mazeColumn, descriptionColumn, dateColumn)
+    let deleteColumn = document.createElement("th")
+    deleteColumn.innerText = "delete?"
+    let editColumn = document.createElement("th")
+    editColumn.innerText = "edit?"
+    tableHeadRow.append(nameColumn, mazeColumn, descriptionColumn, dateColumn, deleteColumn, editColumn)
     commentTable.append(tableHeadRow)
 
     data.forEach((comment) => {
@@ -35,7 +39,24 @@ function showComments(data) {
         description.innerText = comment.description
         let date = document.createElement("td")
         date.innerText = comment.created_at
-        tableRow.append(name, maze, description, date)
+        
+        let deleteEE = document.createElement("td")
+        let deleteBtn = document.createElement("button")
+        deleteBtn.innerText = "delete"
+        deleteBtn.addEventListener('click', function (){
+            deleteComment(comment.id) 
+        })
+        deleteEE.append(deleteBtn)
+
+        let editEE = document.createElement("td")
+        let editBtn = document.createElement("button")
+        editBtn.innerText = "edit"
+        editBtn.addEventListener('click', function (){
+            deleteComment(comment.id) 
+        })
+        editEE.append(editBtn)
+
+        tableRow.append(name, maze, description, date, deleteEE)
         commentTable.append(tableRow)
     })
 
@@ -97,14 +118,32 @@ function submitComment(submittedComment) {
       });
 }
 
-// function deleteBtn() {
-//     let description = document.createElement("td")
-//     description.innerText = comments.description
-//     const deleteButton = document.createElement("button");
-//     deleteButton.innerText = 'Remove';
-//     console.log(deleteButton);
-//     description.append(deleteButton);
-//     deleteButton.addEventListener("click", () => {
-//       description.remove();
-//    })
-// }
+function deleteComment(commentId) {
+    reqPack = {
+        method: "DELETE",
+        headers: {"Content-Type": "application/json"},
+    }
+    fetch(`http://localhost:3000/comments/${commentId}`, reqPack)
+        .then(r=>r.json())
+        .then((data) => {
+            clearScreen()
+            showComments(data)
+        })
+}
+
+function editComment(commentId, newDescription){
+    let newComment = {
+        id: commentId, 
+        description: newDescription
+    }
+    reqPack = {
+        method: "PATCH",
+        headers: {"Content-Type": "application/json"}
+    }
+    fetch(`http://localhost:3000/comments/${commentId}`, reqPack)
+        .then(r=>r.json())
+        .then((data) => {
+            clearScreen()
+            showComments(data)
+        })
+}
