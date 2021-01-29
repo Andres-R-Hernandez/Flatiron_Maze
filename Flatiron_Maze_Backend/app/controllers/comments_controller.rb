@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
     def index
         comments = Comment.all
-        render json: comments, except: [:player_id, :id, :updated_at], include: [:player => {only: [:name]}]
+        render json: comments, except: [:player_id, :updated_at], include: [:player => {only: [:name]}]
     end
 
     def create
@@ -10,6 +10,20 @@ class CommentsController < ApplicationController
         if newComment.save
             render json: newComment
         end
+    end
+
+    def destroy
+        comment = Comment.find(params[:id])
+        comment.delete
+        comments = Comment.all
+        render json: comments, except: [:player_id, :updated_at], include: [:player => {only: [:name]}]
+    end
+
+    def updated
+        comment = Comment.find(params[:id])
+        comment.update(comment_params)
+        comments = Comment.all
+        render json: comments, except: [:player_id, :updated_at], include: [:player => {only: [:name]}]
     end
 
     private

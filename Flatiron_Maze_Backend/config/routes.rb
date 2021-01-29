@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   post "/timescores/new", to:"timescores#create"
   get "/comments", to: "comments#index"
   post "/comments/new", to: "comments#create"
+  delete "/comments/:id", to: "comments#destroy"  
+  patch "/comments/:id", to: "comments#update"
   get "/mazes", to: "mazes#index"
   get "/mazes/:id", to: "mazes#show"
   resources :player_sprites
