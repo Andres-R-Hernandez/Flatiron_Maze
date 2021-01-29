@@ -43,6 +43,10 @@ function renderHomescreen(currentUser) {
 
   let navbar = document.querySelector("#loggedInOptions");
   navbar.style.visibility = "visible"
+
+  let title = document.querySelector("#title")
+  title.addEventListener('click', welcome)
+
   welcome() 
 }
 
@@ -102,6 +106,9 @@ function logout() {
   let navbar = document.querySelector("#loggedInOptions");
   navbar.style.visibility = "hidden"
 
+  let title = document.querySelector("#title")
+  title.removeEventListener('click', welcome)
+  
   renderLogin()
 }
 
