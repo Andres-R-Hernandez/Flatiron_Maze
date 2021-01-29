@@ -6,12 +6,12 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+PlayerSprite.destroy_all()
 Player.destroy_all()
 Maze.destroy_all()
 Timescore.destroy_all()
 Comment.destroy_all()
 Sprite.destroy_all()
-PlayerSprite.destroy_all()
 
 #destroy all functions are giving an error (after db:seed initial run): FOREIGN KEY constraint failed
 #figure out why, and fast!
