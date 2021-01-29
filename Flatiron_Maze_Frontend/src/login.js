@@ -133,3 +133,13 @@ function createNewPlayer(event) {
         console.log("lame")
       });
 }
+
+function welcome() {
+    const container = document.querySelector("#login-form-container")
+    container.style.display = "block"
+    let h3 = document.createElement("h3")
+    h3.innerText = "Welcome to Flatiron Maze"
+    let p = document.createElement("p")
+    p.innerText = "How to play: You are curently at the Homescreen, and you have four options to choose from (Play Game, Leaderboard, Comments, Logout).\n\nSelecting 'Play Game' will take you to an options screen where you can select which maze to play.\n\nSelecting 'Leaderboard' you can look at the current score leaders for each maze.\n\nSelecting 'Comments' will take you to the comment board, that past players have written.\n\nSelecting 'Logout' will take you back to the Login page." 
+    container.append(h3, p)
+}
